@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:meals_app/screens/tabs_screen.dart';
+import 'package:meals_app/routes/routes.dart';
 
 void main() {
   runApp(const App());
@@ -22,7 +22,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const TabsScreen(),
+      initialRoute: Routes.categories,
+      onGenerateRoute: Routes.onGenerateRoute,
     );
   }
 }

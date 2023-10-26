@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal_model.dart';
 
 class MealsInitialState extends MealsState {
-  final List<Meal> meals = [];
+  MealsInitialState() : super(meals: []);
 }
 
 class MealsLoadedState extends MealsState {
-  final List<Meal> meals;
-  MealsLoadedState({required this.meals});
+  const MealsLoadedState({required List<Meal> meals}) : super(meals: meals);
 }
 
-class MealsLoadingState extends MealsState {}
+class MealsLoadingState extends MealsState {
+  MealsLoadingState() : super(meals: []);
+}
 
 @immutable
-class MealsState {}
+class MealsState {
+  final List<Meal> meals;
+  const MealsState({required this.meals});
+}

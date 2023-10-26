@@ -16,6 +16,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   ) async {
     emit(MealsLoadingState());
     await Future.delayed(const Duration(seconds: 3));
-    emit(MealsLoadedState(meals: dummyMeals));
+    emit(const MealsLoadedState(meals: dummyMeals));
   }
 }
