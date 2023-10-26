@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_app/bloc/meals/meals_bloc.dart';
 import 'package:meals_app/models/meal_model.dart';
 import 'package:meals_app/screens/categories_screen.dart';
+import 'package:meals_app/screens/favorites_screen.dart';
 import 'package:meals_app/screens/meal_detail_screen.dart';
 import 'package:meals_app/screens/meals_screen.dart';
 import 'package:meals_app/screens/tabs_screen.dart';
@@ -12,14 +13,19 @@ class Routes {
   static const String favorites = '/favorites';
   static const String mealsList = '/mealsList';
   static const String mealsDetail = '/mealsDetail';
+  static final mealsBloc = MealsBloc();
+
+  static void dispose() {
+    mealsBloc.close();
+  }
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case categories:
         {
           return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-              create: (_) => MealsBloc(),
+            builder: (_) => BlocProvider.value(
+              value: mealsBloc,
               child: const TabsScreen(
                 title: 'Categories',
                 activePage: CategoriesSceen(),
@@ -30,8 +36,8 @@ class Routes {
       case mealsList:
         {
           return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-              create: (_) => MealsBloc(),
+            builder: (_) => BlocProvider.value(
+              value: mealsBloc,
               child: const TabsScreen(
                 title: 'Meals',
                 activePage: MealsScreen(),
@@ -43,11 +49,21 @@ class Routes {
         {
           final meal = settings.arguments as Meal;
           return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-              create: (_) => MealsBloc(),
+            builder: (_) => BlocProvider.value(
+              value: mealsBloc,
               child: TabsScreen(
-                title: meal.title,
                 activePage: MealDetailScreen(meal: meal),
+              ),
+            ),
+          );
+        }
+      case favorites:
+        {
+          return MaterialPageRoute(
+            builder: (_) => BlocProvider<MealsBloc>.value(
+              value: mealsBloc,
+              child: const TabsScreen(
+                activePage: FavoritesScreen(),
               ),
             ),
           );

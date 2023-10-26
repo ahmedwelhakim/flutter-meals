@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/routes/routes.dart';
 
 class TabsScreen extends StatelessWidget {
-  final String title;
+  final String? title;
   final Widget activePage;
   const TabsScreen({
     super.key,
-    required this.title,
+    this.title,
     required this.activePage,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: title != null
+          ? AppBar(
+              title: Text(title!),
+            )
+          : null,
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,

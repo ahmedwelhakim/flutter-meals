@@ -15,9 +15,14 @@ final theme = ThemeData(
   textTheme: GoogleFonts.latoTextTheme(),
 );
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,5 +30,11 @@ class App extends StatelessWidget {
       initialRoute: Routes.categories,
       onGenerateRoute: Routes.onGenerateRoute,
     );
+  }
+
+  @override
+  void dispose() {
+    Routes.dispose();
+    super.dispose();
   }
 }
