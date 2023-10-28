@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../../models/category_model.dart';
+import 'package:meals_app/features/meals/domain/entities/category_entity.dart';
 
 class CategoryGridItem extends StatelessWidget {
-  final Category category;
-  final void Function(Category category) onSelectCategory;
+  final CategoryEntity category;
+  final void Function(CategoryEntity category) onSelectCategory;
 
   const CategoryGridItem({
     super.key,

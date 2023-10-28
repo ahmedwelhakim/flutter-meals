@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/models/meal_model.dart';
-import 'package:meals_app/widgets/meal/meal_item_trait.dart';
+import 'package:meals_app/features/meals/domain/entities/meal_entity.dart';
+import 'package:meals_app/features/meals/presentation/widgets/meal/meal_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealItem extends StatelessWidget {
-  final Meal meal;
-  final void Function(Meal meal) onSelectMeal;
+  final MealEntity meal;
+  final void Function(MealEntity meal) onSelectMeal;
   const MealItem({super.key, required this.meal, required this.onSelectMeal});
 
   String get affordabilityText {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/routes/routes.dart';
+import 'package:meals_app/config/routes/routes.dart';
 
 class TabsScreen extends StatelessWidget {
   final String? title;

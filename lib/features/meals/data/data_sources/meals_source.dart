@@ -1,63 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:meals_app/models/category_model.dart';
-import 'package:meals_app/models/meal_model.dart';
-
-// Constants in Dart should be written in lowerCamelcase.
-const availableCategories = [
-  Category(
-    id: 'c1',
-    title: 'Italian',
-    color: Colors.purple,
-  ),
-  Category(
-    id: 'c2',
-    title: 'Quick & Easy',
-    color: Colors.red,
-  ),
-  Category(
-    id: 'c3',
-    title: 'Hamburgers',
-    color: Colors.orange,
-  ),
-  Category(
-    id: 'c4',
-    title: 'German',
-    color: Colors.amber,
-  ),
-  Category(
-    id: 'c5',
-    title: 'Light & Lovely',
-    color: Colors.blue,
-  ),
-  Category(
-    id: 'c6',
-    title: 'Exotic',
-    color: Colors.green,
-  ),
-  Category(
-    id: 'c7',
-    title: 'Breakfast',
-    color: Colors.lightBlue,
-  ),
-  Category(
-    id: 'c8',
-    title: 'Asian',
-    color: Colors.lightGreen,
-  ),
-  Category(
-    id: 'c9',
-    title: 'French',
-    color: Colors.pink,
-  ),
-  Category(
-    id: 'c10',
-    title: 'Summer',
-    color: Colors.teal,
-  ),
-];
+import 'package:meals_app/features/meals/data/models/meal_model.dart';
+import 'package:meals_app/features/meals/domain/entities/meal_entity.dart';
 
 const dummyMeals = [
-  Meal(
+  MealModel(
     id: 'm1',
     categories: [
       'c1',
@@ -91,7 +36,7 @@ const dummyMeals = [
     isVegetarian: true,
     isLactoseFree: true,
   ),
-  Meal(
+  MealModel(
     id: 'm2',
     categories: [
       'c2',
@@ -119,7 +64,7 @@ const dummyMeals = [
     isVegetarian: false,
     isLactoseFree: false,
   ),
-  Meal(
+  MealModel(
     id: 'm3',
     categories: [
       'c2',
@@ -151,7 +96,7 @@ const dummyMeals = [
     isVegetarian: false,
     isLactoseFree: true,
   ),
-  Meal(
+  MealModel(
     id: 'm4',
     categories: [
       'c4',
@@ -186,7 +131,7 @@ const dummyMeals = [
     isVegetarian: false,
     isLactoseFree: false,
   ),
-  Meal(
+  MealModel(
     id: 'm5',
     categories: [
       'c2'
@@ -222,7 +167,7 @@ const dummyMeals = [
     isVegetarian: true,
     isLactoseFree: true,
   ),
-  Meal(
+  MealModel(
     id: 'm6',
     categories: [
       'c6',
@@ -258,7 +203,7 @@ const dummyMeals = [
     isVegetarian: true,
     isLactoseFree: false,
   ),
-  Meal(
+  MealModel(
     id: 'm7',
     categories: [
       'c7',
@@ -289,7 +234,7 @@ const dummyMeals = [
     isVegetarian: true,
     isLactoseFree: false,
   ),
-  Meal(
+  MealModel(
     id: 'm8',
     categories: [
       'c8',
@@ -322,7 +267,7 @@ const dummyMeals = [
     isVegetarian: false,
     isLactoseFree: true,
   ),
-  Meal(
+  MealModel(
     id: 'm9',
     categories: [
       'c9',
@@ -371,7 +316,7 @@ const dummyMeals = [
     isVegetarian: true,
     isLactoseFree: false,
   ),
-  Meal(
+  MealModel(
     id: 'm10',
     categories: [
       'c2',

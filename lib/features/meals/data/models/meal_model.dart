@@ -1,16 +1,6 @@
-enum Affordability {
-  affordable,
-  pricey,
-  luxurious,
-}
+import 'package:meals_app/features/meals/domain/entities/meal_entity.dart';
 
-enum Complexity {
-  simple,
-  challenging,
-  hard,
-}
-
-class Meal {
+class MealModel {
   final String id;
 
   final List<String> categories;
@@ -25,7 +15,7 @@ class Meal {
   final bool isLactoseFree;
   final bool isVegan;
   final bool isVegetarian;
-  const Meal({
+  const MealModel({
     required this.id,
     required this.categories,
     required this.title,

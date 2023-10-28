@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meals_app/bloc/meals/meals_bloc.dart';
-import 'package:meals_app/models/meal_model.dart';
-import 'package:meals_app/screens/categories_screen.dart';
-import 'package:meals_app/screens/favorites_screen.dart';
-import 'package:meals_app/screens/meal_detail_screen.dart';
-import 'package:meals_app/screens/meals_screen.dart';
-import 'package:meals_app/screens/tabs_screen.dart';
+import 'package:meals_app/features/meals/domain/entities/category_entity.dart';
+import 'package:meals_app/features/meals/domain/entities/meal_entity.dart';
+import 'package:meals_app/features/meals/presentation/bloc/meals/meals_bloc.dart';
+import 'package:meals_app/features/meals/presentation/screens/categories_screen.dart';
+import 'package:meals_app/features/meals/presentation/screens/favorites_screen.dart';
+import 'package:meals_app/features/meals/presentation/screens/meal_detail_screen.dart';
+import 'package:meals_app/features/meals/presentation/screens/meals_screen.dart';
+import 'package:meals_app/features/meals/presentation/screens/tabs_screen.dart';
 
 class Routes {
   static const String categories = '/';
@@ -35,19 +36,21 @@ class Routes {
         }
       case mealsList:
         {
+          final CategoryEntity category = settings.arguments as CategoryEntity;
+
           return MaterialPageRoute(
             builder: (_) => BlocProvider.value(
               value: mealsBloc,
-              child: const TabsScreen(
+              child: TabsScreen(
                 title: 'Meals',
-                activePage: MealsScreen(),
+                activePage: MealsScreen(category: category),
               ),
             ),
           );
         }
       case mealsDetail:
         {
-          final meal = settings.arguments as Meal;
+          final meal = settings.arguments as MealEntity;
           return MaterialPageRoute(
             builder: (_) => BlocProvider.value(
               value: mealsBloc,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/models/meal_model.dart';
-import 'package:meals_app/routes/routes.dart';
-import 'package:meals_app/widgets/meal/meal_item.dart';
+import 'package:meals_app/config/routes/routes.dart';
+import 'package:meals_app/features/meals/domain/entities/meal_entity.dart';
+import 'package:meals_app/features/meals/presentation/widgets/meal/meal_item.dart';
 
 class MealsList extends StatelessWidget {
   final String? title;
 
-  final List<Meal> meals;
+  final List<MealEntity> meals;
   const MealsList({super.key, this.title, required this.meals});
 
   @override
@@ -36,7 +36,7 @@ class MealsList extends StatelessWidget {
     );
   }
 
-  navigateToMeal(BuildContext context, Meal meal) {
+  navigateToMeal(BuildContext context, MealEntity meal) {
     Navigator.of(context).pushNamed(Routes.mealsDetail, arguments: meal);
   }
 }
