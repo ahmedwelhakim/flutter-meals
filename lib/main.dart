@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meals_app/config/routes/routes.dart';
+import 'package:meals_app/service_locator.dart';
 
 void main() {
+  setupServiceLocator();
   runApp(const App());
 }
 
@@ -15,14 +17,9 @@ final theme = ThemeData(
   textTheme: GoogleFonts.latoTextTheme(),
 );
 
-class App extends StatefulWidget {
+class App extends StatelessWidget {
   const App({super.key});
 
-  @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,11 +27,5 @@ class _AppState extends State<App> {
       initialRoute: Routes.categories,
       onGenerateRoute: Routes.onGenerateRoute,
     );
-  }
-
-  @override
-  void dispose() {
-    Routes.dispose();
-    super.dispose();
   }
 }

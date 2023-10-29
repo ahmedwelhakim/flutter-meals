@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/features/meals/domain/entities/category_entity.dart';
 
 class CategoryModel {
   final String id;
@@ -10,4 +11,12 @@ class CategoryModel {
     required this.title,
     this.color = Colors.orange,
   });
+
+  CategoryEntity toEntity() {
+    return CategoryEntity(
+      id: id,
+      title: title,
+      color: color,
+    );
+  }
 }

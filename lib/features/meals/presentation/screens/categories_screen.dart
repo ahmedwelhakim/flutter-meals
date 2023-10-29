@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_app/config/routes/routes.dart';
 import 'package:meals_app/features/meals/domain/entities/category_entity.dart';
-import 'package:meals_app/features/meals/presentation/bloc/meals/meals_bloc.dart';
-import 'package:meals_app/features/meals/presentation/bloc/meals/meals_events.dart';
+import 'package:meals_app/features/meals/presentation/bloc/meals/meals_cubit.dart';
 import 'package:meals_app/features/meals/presentation/bloc/meals/meals_state.dart';
 import 'package:meals_app/features/meals/presentation/widgets/category/category_grid_item.dart';
 
@@ -18,12 +17,12 @@ class _CategoriesSceenState extends State<CategoriesSceen> {
   @override
   void initState() {
     super.initState();
-    context.read<MealsBloc>().add(LoadCategoriesEvent());
+    context.read<MealsCubit>().loadCategories();
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<MealsBloc>().state;
+    final state = context.watch<MealsCubit>().state;
 
     if (state is MealsCategoriesLoadingState) {
       return const Center(
@@ -31,7 +30,7 @@ class _CategoriesSceenState extends State<CategoriesSceen> {
       );
     }
     if (state is MealsCategoriesLoadedSuccessfullState) {
-      final availableCategories = state.categories;
+      final availableCategories = state.categories ?? [];
       return GridView(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

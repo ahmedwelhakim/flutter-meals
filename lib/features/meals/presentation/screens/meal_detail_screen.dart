@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_app/features/meals/domain/entities/meal_entity.dart';
-import 'package:meals_app/features/meals/presentation/bloc/meals/meals_bloc.dart';
-import 'package:meals_app/features/meals/presentation/bloc/meals/meals_events.dart';
+import 'package:meals_app/features/meals/presentation/bloc/meals/meals_cubit.dart';
 import 'package:meals_app/features/meals/presentation/bloc/meals/meals_state.dart';
 
 class MealDetailScreen extends StatelessWidget {
@@ -10,10 +9,11 @@ class MealDetailScreen extends StatelessWidget {
   const MealDetailScreen({super.key, required this.meal});
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MealsBloc, MealsState>(
+    return BlocListener<MealsCubit, MealsState>(
       listener: (context, state) {
-        if (state is MealsFavoritesState) {
-          if (state.favorites.contains(meal)) {
+        if (state is MealsFavoritesLoadedState) {
+          final favorites = state.favorites ?? [];
+          if (favorites.contains(meal)) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Meal Added to Favorites'),
             ));
@@ -29,19 +29,20 @@ class MealDetailScreen extends StatelessWidget {
           title: Text(meal.title),
           actions: [
             Builder(builder: (ctx) {
-              final state = context.watch<MealsBloc>().state;
-              if (state is MealsFavoritesState) {
-                final isFavorite = state.favorites.contains(meal);
+              final state = context.watch<MealsCubit>().state;
+              if (state is MealsFavoritesLoadedState) {
+                final favorites = state.favorites ?? [];
+                final isFavorite = favorites.contains(meal);
                 return IconButton(
                   onPressed: () {
-                    context.read().add(ToggleFavoriteMealEvent(meal));
+                    context.read<MealsCubit>().toggleFavorite(meal);
                   },
                   icon: Icon(isFavorite ? Icons.star : Icons.star_border),
                 );
               }
               return IconButton(
                 onPressed: () {
-                  context.read().add(ToggleFavoriteMealEvent(meal));
+                  context.read<MealsCubit>().toggleFavorite(meal);
                 },
                 icon: const Icon(Icons.star_border),
               );

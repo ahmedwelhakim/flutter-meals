@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_app/features/meals/domain/entities/category_entity.dart';
 import 'package:meals_app/features/meals/domain/entities/meal_entity.dart';
-import 'package:meals_app/features/meals/presentation/bloc/meals/meals_bloc.dart';
-import 'package:meals_app/features/meals/presentation/bloc/meals/meals_events.dart';
+import 'package:meals_app/features/meals/presentation/bloc/meals/meals_cubit.dart';
 import 'package:meals_app/features/meals/presentation/bloc/meals/meals_state.dart';
 import 'package:meals_app/features/meals/presentation/widgets/meal/meals_list.dart';
 
@@ -19,13 +18,13 @@ class _MealsScreenState extends State<MealsScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<MealsBloc>().add(LoadMealsEvent());
+    context.read<MealsCubit>().loadMeals();
   }
 
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (ctx) {
-      final state = context.watch<MealsBloc>().state;
+      final state = context.watch<MealsCubit>().state;
       if (state is MealsInitialState) {
         return const Center(
           child: CircularProgressIndicator(),
@@ -37,7 +36,7 @@ class _MealsScreenState extends State<MealsScreen> {
         );
       }
       if (state is MealsLoadedSuccessfulState) {
-        List<MealEntity> meals = state.meals;
+        List<MealEntity> meals = state.meals ?? [];
         if (widget.category != null) {
           meals = meals
               .where((element) =>

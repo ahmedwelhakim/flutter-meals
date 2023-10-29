@@ -30,4 +30,22 @@ class MealModel {
     required this.isVegan,
     required this.isVegetarian,
   });
+
+  MealEntity toEntity() {
+    return MealEntity(
+      id: id,
+      categories: categories,
+      title: title,
+      imageUrl: imageUrl,
+      ingredients: ingredients,
+      steps: steps,
+      duration: duration,
+      complexity: complexity,
+      affordability: affordability,
+      isGlutenFree: isGlutenFree,
+      isLactoseFree: isLactoseFree,
+      isVegan: isVegan,
+      isVegetarian: isVegetarian,
+    );
+  }
 }
