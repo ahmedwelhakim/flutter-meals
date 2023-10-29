@@ -29,28 +29,24 @@ class _CategoriesSceenState extends State<CategoriesSceen> {
         child: CircularProgressIndicator(),
       );
     }
-    if (state is MealsCategoriesLoadedSuccessfullState) {
-      final availableCategories = state.categories ?? [];
-      return GridView(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-        ),
-        children: [
-          for (final category in availableCategories)
-            CategoryGridItem(
-                category: category,
-                onSelectCategory: (category) {
-                  selectCategory(context, category);
-                }),
-        ],
-      );
-    }
-    return const Center(
-      child: Text("No Available Data"),
+
+    final availableCategories = state.categories ?? [];
+    return GridView(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 3 / 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+      ),
+      children: [
+        for (final category in availableCategories)
+          CategoryGridItem(
+              category: category,
+              onSelectCategory: (category) {
+                selectCategory(context, category);
+              }),
+      ],
     );
   }
 

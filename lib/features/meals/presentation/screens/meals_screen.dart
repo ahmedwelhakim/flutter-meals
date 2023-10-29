@@ -35,20 +35,16 @@ class _MealsScreenState extends State<MealsScreen> {
           child: CircularProgressIndicator(),
         );
       }
-      if (state is MealsLoadedSuccessfulState) {
-        List<MealEntity> meals = state.meals ?? [];
-        if (widget.category != null) {
-          meals = meals
-              .where((element) =>
-                  element.categories.contains(widget.category?.title))
-              .toList();
-        }
-        return MealsList(
-          meals: meals,
-        );
+
+      List<MealEntity> meals = state.meals ?? [];
+      if (widget.category != null) {
+        meals = meals
+            .where(
+                (element) => element.categories.contains(widget.category?.id))
+            .toList();
       }
-      return const Center(
-        child: Text('No Data Available'),
+      return MealsList(
+        meals: meals,
       );
     });
   }

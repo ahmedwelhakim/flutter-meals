@@ -22,14 +22,10 @@ class FavoritesScreen extends StatelessWidget {
           child: CircularProgressIndicator(),
         );
       }
-      if (state is MealsFavoritesLoadedState) {
-        final List<MealEntity> meals = state.favorites ?? [];
-        return MealsList(
-          meals: meals,
-        );
-      }
-      return const Center(
-        child: Text('No Data Available'),
+
+      final List<MealEntity> meals = state.favorites ?? [];
+      return MealsList(
+        meals: meals,
       );
     });
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/config/routes/routes.dart';
+import 'package:meals_app/features/meals/presentation/screens/categories_screen.dart';
+import 'package:meals_app/features/meals/presentation/screens/favorites_screen.dart';
 
 class TabsScreen extends StatelessWidget {
   final String? title;
@@ -40,10 +42,14 @@ class TabsScreen extends StatelessWidget {
 
   void _selectPage(int index, BuildContext ctx) {
     if (index == 0) {
-      Navigator.pushNamed(ctx, Routes.categories);
+      if (activePage is! CategoriesSceen) {
+        Navigator.pushReplacementNamed(ctx, Routes.categories);
+      }
     }
     if (index == 1) {
-      Navigator.pushNamed(ctx, Routes.favorites);
+      if (activePage is! FavoritesScreen) {
+        Navigator.pushReplacementNamed(ctx, Routes.favorites);
+      }
     }
   }
 }

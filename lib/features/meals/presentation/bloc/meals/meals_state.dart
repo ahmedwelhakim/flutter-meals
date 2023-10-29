@@ -8,22 +8,15 @@ class MealsState extends Equatable {
   final List<MealEntity>? meals;
   final List<MealEntity>? favorites;
   final List<CategoryEntity>? categories;
-  const MealsState({this.meals, this.favorites, this.categories});
+
+  const MealsState({
+    this.meals,
+    this.favorites,
+    this.categories,
+  });
 
   @override
   List<Object?> get props => [meals, favorites];
-
-  copyWith({
-    List<MealEntity>? meals,
-    List<MealEntity>? favorites,
-    List<CategoryEntity>? categories,
-  }) {
-    return MealsState(
-      meals: meals ?? this.meals,
-      favorites: favorites ?? this.favorites,
-      categories: categories ?? this.categories,
-    );
-  }
 }
 
 class MealsInitialState extends MealsState {

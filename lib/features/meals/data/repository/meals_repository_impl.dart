@@ -1,5 +1,5 @@
-import 'package:meals_app/features/meals/data/data_sources/categories_source.dart';
-import 'package:meals_app/features/meals/data/data_sources/meals_source.dart';
+import 'package:meals_app/features/meals/data/datasources/categories_source.dart';
+import 'package:meals_app/features/meals/data/datasources/meals_source.dart';
 import 'package:meals_app/features/meals/data/models/category_model.dart';
 import 'package:meals_app/features/meals/data/models/meal_model.dart';
 import 'package:meals_app/features/meals/domain/entities/category_entity.dart';

@@ -40,6 +40,14 @@ class MealsCubit extends Cubit<MealsState> {
   }
 
   toggleFavorite(MealEntity meal) {
-    mealsUseCases.toggleFavorite(favorites: state.favorites ?? [], meal: meal);
+    final favorites = mealsUseCases.toggleFavorite(
+      favorites: state.favorites ?? [],
+      meal: meal,
+    );
+    emit(MealsFavoritesLoadedState(
+      favorites: favorites,
+      categories: state.categories,
+      meals: state.meals,
+    ));
   }
 }
