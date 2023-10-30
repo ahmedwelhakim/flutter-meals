@@ -7,34 +7,30 @@ class MealsCubit extends Cubit<MealsState> {
   MealsUseCases mealsUseCases;
   MealsCubit({
     required this.mealsUseCases,
-  }) : super(const MealsInitialState());
+  }) : super(const MealsState(
+          categories: [],
+          categoriesStatus: CategoriesStatus.initial,
+          meals: [],
+          mealStatus: MealsStatus.initial,
+          favorites: [],
+        ));
 
   loadCategories() {
-    emit(MealsCategoriesLoadingState(
-      categories: state.categories,
-      meals: state.meals,
-      favorites: state.favorites,
-    ));
+    emit(state.copyWith(categoriesStatus: CategoriesStatus.loading));
     mealsUseCases.getCategories().then((value) {
-      emit(MealsCategoriesLoadedSuccessfullState(
+      emit(state.copyWith(
+        categoriesStatus: CategoriesStatus.loaded,
         categories: value,
-        meals: state.meals,
-        favorites: state.favorites,
       ));
     });
   }
 
   loadMeals() {
-    emit(MealsLoadingState(
-      categories: state.categories,
-      meals: state.meals,
-      favorites: state.favorites,
-    ));
+    emit(state.copyWith(mealStatus: MealsStatus.loading));
     mealsUseCases.getMeals().then((value) {
-      emit(MealsLoadedSuccessfulState(
+      emit(state.copyWith(
+        mealStatus: MealsStatus.loaded,
         meals: value,
-        favorites: state.favorites,
-        categories: state.categories,
       ));
     });
   }
@@ -44,10 +40,6 @@ class MealsCubit extends Cubit<MealsState> {
       favorites: state.favorites ?? [],
       meal: meal,
     );
-    emit(MealsFavoritesLoadedState(
-      favorites: favorites,
-      categories: state.categories,
-      meals: state.meals,
-    ));
+    emit(state.copyWith(favorites: favorites));
   }
 }

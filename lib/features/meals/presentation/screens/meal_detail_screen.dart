@@ -11,17 +11,15 @@ class MealDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<MealsCubit, MealsState>(
       listener: (context, state) {
-        if (state is MealsFavoritesLoadedState) {
-          final favorites = state.favorites ?? [];
-          if (favorites.contains(meal)) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Meal Added to Favorites'),
-            ));
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Meal Removed from Favorites'),
-            ));
-          }
+        final favorites = state.favorites ?? [];
+        if (favorites.contains(meal)) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Meal Added to Favorites'),
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Meal Removed from Favorites'),
+          ));
         }
       },
       child: Scaffold(
@@ -30,21 +28,14 @@ class MealDetailScreen extends StatelessWidget {
           actions: [
             Builder(builder: (ctx) {
               final state = context.watch<MealsCubit>().state;
-              if (state is MealsFavoritesLoadedState) {
-                final favorites = state.favorites ?? [];
-                final isFavorite = favorites.contains(meal);
-                return IconButton(
-                  onPressed: () {
-                    context.read<MealsCubit>().toggleFavorite(meal);
-                  },
-                  icon: Icon(isFavorite ? Icons.star : Icons.star_border),
-                );
-              }
+
+              final favorites = state.favorites ?? [];
+              final isFavorite = favorites.contains(meal);
               return IconButton(
                 onPressed: () {
                   context.read<MealsCubit>().toggleFavorite(meal);
                 },
-                icon: const Icon(Icons.star_border),
+                icon: Icon(isFavorite ? Icons.star : Icons.star_border),
               );
             })
           ],

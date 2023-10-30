@@ -3,64 +3,74 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/features/meals/domain/entities/category_entity.dart';
 import 'package:meals_app/features/meals/domain/entities/meal_entity.dart';
 
+enum MealsStatus {
+  initial,
+  loading,
+  loaded,
+  error,
+}
+
+enum CategoriesStatus {
+  initial,
+  loading,
+  loaded,
+  error,
+}
+
+enum FavoritesStatus {
+  initial,
+  loading,
+  loaded,
+  error,
+}
+
 @immutable
 class MealsState extends Equatable {
   final List<MealEntity>? meals;
+  final MealsStatus? mealStatus;
   final List<MealEntity>? favorites;
   final List<CategoryEntity>? categories;
+  final CategoriesStatus? categoriesStatus;
 
   const MealsState({
     this.meals,
     this.favorites,
     this.categories,
+    this.mealStatus,
+    this.categoriesStatus,
   });
 
   @override
-  List<Object?> get props => [meals, favorites];
-}
+  List<Object?> get props {
+    final props = [];
+    meals?.forEach((element) {
+      props.add(element);
+    });
+    favorites?.forEach((element) {
+      props.add(element);
+    });
+    categories?.forEach((element) {
+      props.add(element);
+    });
+    props.add(mealStatus);
+    props.add(categoriesStatus);
+    return props;
+  }
 
-class MealsInitialState extends MealsState {
-  const MealsInitialState()
-      : super(meals: const [], favorites: const [], categories: const []);
-}
-
-class MealsLoadingState extends MealsState {
-  const MealsLoadingState({super.meals, super.categories, super.favorites});
-}
-
-class MealsLoadedSuccessfulState extends MealsState {
-  const MealsLoadedSuccessfulState(
-      {super.meals, super.categories, super.favorites});
-
-  @override
-  List<Object?> get props => meals!.map((e) => e.id).toList();
-}
-
-class MealsCategoriesLoadingState extends MealsState {
-  const MealsCategoriesLoadingState(
-      {super.meals, super.categories, super.favorites});
-}
-
-class MealsCategoriesLoadedSuccessfullState extends MealsState {
-  const MealsCategoriesLoadedSuccessfullState(
-      {super.meals, super.categories, super.favorites});
-  @override
-  List<Object?> get props => categories!.map((e) => e.id).toList();
-}
-
-class MealsErrorState extends MealsState {
-  final String errorMessage;
-
-  const MealsErrorState({required this.errorMessage});
-
-  @override
-  List<Object?> get props => [errorMessage];
-}
-
-class MealsFavoritesLoadedState extends MealsState {
-  const MealsFavoritesLoadedState({
-    super.meals,
-    super.categories,
-    super.favorites,
-  });
+  MealsState copyWith({
+    List<MealEntity>? meals,
+    MealsStatus? mealStatus,
+    List<MealEntity>? favorites,
+    FavoritesStatus? favoritesStatus,
+    List<CategoryEntity>? categories,
+    CategoriesStatus? categoriesStatus,
+  }) {
+    return MealsState(
+      meals: meals ?? this.meals,
+      favorites: favorites ?? this.favorites,
+      categories: categories ?? this.categories,
+      mealStatus: mealStatus ?? this.mealStatus,
+      categoriesStatus: categoriesStatus ?? this.categoriesStatus,
+    );
+  }
 }

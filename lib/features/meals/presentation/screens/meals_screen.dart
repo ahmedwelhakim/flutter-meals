@@ -6,43 +6,34 @@ import 'package:meals_app/features/meals/presentation/bloc/meals/meals_cubit.dar
 import 'package:meals_app/features/meals/presentation/bloc/meals/meals_state.dart';
 import 'package:meals_app/features/meals/presentation/widgets/meal/meals_list.dart';
 
-class MealsScreen extends StatefulWidget {
-  final CategoryEntity? category;
-  const MealsScreen({super.key, this.category});
-
-  @override
-  State<MealsScreen> createState() => _MealsScreenState();
-}
-
-class _MealsScreenState extends State<MealsScreen> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<MealsCubit>().loadMeals();
-  }
+class MealsScreen extends StatelessWidget {
+  final CategoryEntity category;
+  const MealsScreen({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (ctx) {
       final state = context.watch<MealsCubit>().state;
-      if (state is MealsInitialState) {
+      if (state.mealStatus == MealsStatus.initial) {
+        context.read<MealsCubit>().loadMeals();
+      }
+      if (state.mealStatus == MealsStatus.loading) {
         return const Center(
           child: CircularProgressIndicator(),
         );
       }
-      if (state is MealsLoadingState) {
+      if (state.mealStatus == MealsStatus.error) {
         return const Center(
-          child: CircularProgressIndicator(),
+          child: Text('Something went wrong'),
         );
       }
 
       List<MealEntity> meals = state.meals ?? [];
-      if (widget.category != null) {
-        meals = meals
-            .where(
-                (element) => element.categories.contains(widget.category?.id))
-            .toList();
-      }
+
+      meals = meals
+          .where((element) => element.categories.contains(category.id))
+          .toList();
+
       return MealsList(
         meals: meals,
       );

@@ -6,30 +6,25 @@ import 'package:meals_app/features/meals/presentation/bloc/meals/meals_cubit.dar
 import 'package:meals_app/features/meals/presentation/bloc/meals/meals_state.dart';
 import 'package:meals_app/features/meals/presentation/widgets/category/category_grid_item.dart';
 
-class CategoriesSceen extends StatefulWidget {
+class CategoriesSceen extends StatelessWidget {
   const CategoriesSceen({super.key});
-
-  @override
-  State<CategoriesSceen> createState() => _CategoriesSceenState();
-}
-
-class _CategoriesSceenState extends State<CategoriesSceen> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<MealsCubit>().loadCategories();
-  }
 
   @override
   Widget build(BuildContext context) {
     final state = context.watch<MealsCubit>().state;
-
-    if (state is MealsCategoriesLoadingState) {
+    if (state.categoriesStatus == CategoriesStatus.initial) {
+      context.read<MealsCubit>().loadCategories();
+    }
+    if (state.categoriesStatus == CategoriesStatus.loading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
-
+    if (state.categoriesStatus == CategoriesStatus.error) {
+      return const Center(
+        child: Text('Something went wrong'),
+      );
+    }
     final availableCategories = state.categories ?? [];
     return GridView(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
